@@ -22,12 +22,18 @@ targetCompatibility = 1.8
 
 dependencies {
 
+   // implementation 'com.fasterxml.jackson.core:jackson-core:2.8.8'
     implementation 'info.picocli:picocli:4.6.1'
+    implementation "info.picocli:picocli-spring-boot-starter:4.6.1"
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    compile 'info.picocli:picocli:4.6.1'
+    implementation 'info.picocli:picocli:4.6.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.8'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.8'
+
 }
 
 test {
