@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TarotSpreadDAO {
 
-    List<TarotSpread> getAll();
+    List<TarotSpread> findAll();
 
     void save(TarotSpread tarotSpread);
 }

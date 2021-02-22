@@ -1,18 +1,23 @@
 package com.c72g.exploring;
 
-import com.c72g.exploring.info.I_Information;
-import com.c72g.exploring.info.Information;
-import com.c72g.exploring.info.InformationBuilder;
 
+import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
-public class TarotSpread  implements I_Information {
+@Entity
+public class TarotSpread  {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     private String uuid = UUID.randomUUID().toString();
     private TarotSpreadType tarotSpreadType;
+    @ElementCollection(targetClass = TarotCard.class, fetch = FetchType.EAGER)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
     private List<TarotCard> tarotCardList;
 
     public TarotSpread(TarotSpreadType tarotSpreadType, List<TarotCard> tarotCardList) {
@@ -21,6 +26,14 @@ public class TarotSpread  implements I_Information {
     }
 
     public TarotSpread() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUuid() {
@@ -47,9 +60,14 @@ public class TarotSpread  implements I_Information {
         this.tarotCardList = tarotCardList;
     }
 
+
     @Override
-    public Information toInformation() {
-        return new InformationBuilder().header(tarotSpreadType.name()).
-                content(tarotCardList.toString()).toInformation();
+    public String toString() {
+        return "TarotSpread{" +
+                "id=" + id +
+                ", uuid='" + uuid + '\'' +
+                ", tarotSpreadType=" + tarotSpreadType +
+                ", tarotCardList=" + tarotCardList +
+                '}';
     }
 }

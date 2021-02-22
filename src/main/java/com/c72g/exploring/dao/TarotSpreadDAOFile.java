@@ -15,16 +15,15 @@ public class TarotSpreadDAOFile implements TarotSpreadDAO {
     private final String entityName = "tarotSpread";
 
     @Override
-    public List<TarotSpread> getAll() {
-        if (!getEntityFile().exists())
-            return new ArrayList<TarotSpread>();
+    public List<TarotSpread> findAll() {
+        final File entityFile = getEntityFile();
+        if (!entityFile.exists() || entityFile.length() == 0)
+            return new ArrayList<>();
         final ObjectMapper objectMapper = new ObjectMapper();
         try {
-            final List<TarotSpread> tarotSpreadList =
-                    objectMapper.readValue(
-                            getEntityFile(), new TypeReference<List<TarotSpread>>() {
-                            });
-            return tarotSpreadList;
+            return objectMapper.readValue(
+                    entityFile, new TypeReference<List<TarotSpread>>() {
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +38,7 @@ public class TarotSpreadDAOFile implements TarotSpreadDAO {
 
     @Override
     public void save(TarotSpread tarotSpread) {
-        final List<TarotSpread> tarotSpreadList = getAll();
+        final List<TarotSpread> tarotSpreadList = findAll();
         tarotSpreadList.add(tarotSpread);
         final ObjectMapper objectMapper = new ObjectMapper();
         try {

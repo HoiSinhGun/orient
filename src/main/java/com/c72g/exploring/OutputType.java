@@ -4,6 +4,7 @@ public enum OutputType {
 
     ALL,
     CONSOLE,
-    FILE;
+    DB,
+    FILE
 
 }

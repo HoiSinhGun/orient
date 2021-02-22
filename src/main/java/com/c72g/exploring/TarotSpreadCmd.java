@@ -16,10 +16,10 @@ public class TarotSpreadCmd implements Callable<Integer> {
     private final ApplicationContext applicationContext;
 
     @CommandLine.Option(names = "--type", description = "Spread type (ONE_CARD, THREE_CARD, CELTIC,...). " +
-            "Default: ${DEFAULT_VALUE}", required = false)
+            "Default: ${DEFAULT_VALUE}")
     TarotSpreadType spreadType = TarotSpreadType.ONE_CARD;
 
-    @CommandLine.Option(names = "--outType", description = "Output type (CONSOLE, FILE, ALL). " +
+    @CommandLine.Option(names = "--outType", description = "Output type (CONSOLE, FILE, DB, ALL). " +
             "Default: ALL", defaultValue = "ALL")
     OutputType outType = OutputType.ALL;
 
@@ -29,7 +29,7 @@ public class TarotSpreadCmd implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         final TarotSpread tarotSpread =
                 tarotSpreadService.spreadByType(spreadType);
         final Map<String, TarotResultHandler> tarotResultHandlerMap =

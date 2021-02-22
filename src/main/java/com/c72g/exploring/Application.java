@@ -2,11 +2,17 @@ package com.c72g.exploring;
 
 import com.c72g.exploring.dao.TarotSpreadDAO;
 import com.c72g.exploring.dao.TarotSpreadDAOFile;
+import com.c72g.exploring.dao.TarotSpreadDAOImpl;
+import com.c72g.exploring.dao.TarotSpreadRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories(basePackages = {
+        "com.c72g.exploring.dao"
+})
 public class Application {
 
 
@@ -22,8 +28,13 @@ public class Application {
 //    }
 
     @Bean
-    public TarotSpreadDAO tarotSpreadDAO() {
+    public TarotSpreadDAO tarotSpreadDAOFile() {
         return new TarotSpreadDAOFile();
+    }
+
+    @Bean
+    public TarotSpreadDAO tarotSpreadDAOImpl() {
+        return new TarotSpreadDAOImpl();
     }
 
     @Bean
@@ -34,6 +45,11 @@ public class Application {
     @Bean
     public TarotResultHandler tarotResultToConsoleHandler() {
         return new TarotResultToConsoleHandlerImpl();
+    }
+
+    @Bean
+    public TarotResultHandler tarotResultToDBHandler() {
+        return new TarotResultToDBHandlerImpl();
     }
 
     @Bean
